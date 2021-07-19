@@ -1,0 +1,31 @@
+def OLS_regression(target, factors):
+    """
+    Function leverages statsmodel library to execute an ordinary least squares regression for a
+    target (i.e., dependent variable) based on a single factor or set of factors (i.e. independent variables).
+
+    Attributes
+    ----------
+    :param target:
+        Dependent variable
+    :param factors:
+        Independent variable
+    :return:
+        Summary of regression results
+    """
+
+    # INITIALIZE LIBRARIES
+    import statsmodels.api as sm
+
+    # ASSIGN TARGET & FACTORS
+    for columns in target:
+        y = target[columns]
+        X = factors.fillna(0)
+        X = sm.add_constant(X)
+
+        # SET PARAMETERS & FIT MODEL
+        model = sm.OLS(y, X)
+        results = model.fit()
+        results_summary = results.summary()
+
+        # DISPLAY RESULTS
+        print(results_summary)
